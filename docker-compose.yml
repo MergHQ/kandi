@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  tex:
+    build: .
+    volumes:
+      - .:/tex
+      - ./miktex:/miktex/.miktex

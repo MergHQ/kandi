@@ -1,0 +1,17 @@
+name: pdf-deployment
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build PDF
+        run: |
+          docker-compose build
+          docker-compose run tex pdflatex src/main.tex
