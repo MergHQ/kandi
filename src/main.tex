@@ -1,105 +1,262 @@
-\documentclass{article}
-
-\usepackage[utf8]{inputenc}
-\usepackage[margin=1in]{geometry}
-% math symbols etc
-\usepackage{amsmath,amsthm,amssymb}
-% declarepaireddelimiter for \norm
-\usepackage{mathtools}
-
-
-% \degree symbol
-\usepackage{gensymb}
-% verbatim (code blocks)
-\usepackage{verbatim}
-% titlesec to redefine \section to get number after title
-\usepackage[explicit]{titlesec}
-% \textcolor names
-\usepackage[usenames, dvipsnames]{color}
-\usepackage{xcolor}
-\usepackage{tikz}
-\usepackage{lmodern}
-\usepackage[T1]{fontenc}
-\usepackage[finnish]{babel}
-
-\usetikzlibrary{automata,positioning}
-
-\setlength{\parindent}{0pt}
- 
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\mapsTo}{\rightarrow}
+%% History:
+%% December 2020 Veli Mäkinen removed obsolete options related to 40 cr theses
+%% May 2019 Tomi Männistö, Antti-Pekka Tuovinen proofreading; 30 vs. 40 cr theses, etc.
+%% May 2019 Tomi Männistö changed from babelbib to bibtex; Abstract page (and other pages as well) reformatting.
+%% January–May 2019 several issues fixed by Niko Mäkitalo; long fields in abstract
+%% March 2018 template file extended by Lea Kutvonen to exploit HYthesisML.cls.
+%% Feb2018 This template file for the use of HYgraduML.cls was  modified by Veli Mäkinen from HY_fysiikka_LuKtemplate.tex
+%% authored by Roope Halonen ja Tomi Vainio in 2017.
+%% Some text is also inherited from engl_malli.tex versions by Kutvonen, Erkiö, Mäkelä, Verkamo, Kurhila, and
+%% Nykänen, to accompany tktltiki.cls (by Puolakka 2002).
 
 
-\newcommand{\cfbox}[2]{%
-    \colorlet{currentcolor}{.}%
-    {\color{#1}%
-    \fbox{\color{currentcolor}#2}}%
+%% Follow comments to support use.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% STEP 1: Choose options for MSc / BSc / seminar layout and your bibliographic style
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%  Language: 
+%%      finnish, swedish, or english
+%%  Pagination (use twoside by default)  
+%%      oneside or twoside,
+%%  Study programme / kind of report
+%%      csm  = Master's thesis in Computer Science Master's Programme;
+%%      tkt = Bachelor's thesis in Computer Science Bachelor's Programme;
+%%      seminar = seminar report
+%%  For Master's thesis choose your line or track:
+%%      (30 cr thesis, 2020 onwards, Master's Programme in Computer Science = csm)
+%%      software-track-2020 = Software study track
+%%      algorithms-track-2020 = Algorithms study track
+%%      networking-track-2020 = Networking study track
+%%
+%%      (30 cr thesis, Master's Programme in Computer Science = csm)
+%%      sw-track-2018 = Software Systems study track
+%%      alko-track-2018 = Algorithms study track
+%%      nodes-track-2018 = Networking and Services study track
+%%
+%%      (30 cr thesis, Master's Programme in Computer Science = csm)
+%%      sw-line-2017 =  Software systems subprogramme
+%%      alko-line-2017 = Algorithms, Data Analytics and Machine Learning subprogramme
+%%      bio-line-2017 = Algorithmic Bioinformatics subprogramme
+%%      nodes-line-2017 = Networking and Services subprogramme
+%%
+
+\documentclass[finnish,twoside,censored,tkt,sw-line]{HYthesisML}
+
+
+% In theses, open new chapters only at right page.
+% For other types of documents, may ask "openany" in document.
+\PassOptionsToClass{openright,twoside,a4paper}{report}
+%\PassOptionsToClass{openany,twoside,a4paper}{report}
+
+\usepackage{csquotes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% REFERENCES
+%% Some notes on bibliography usage and options:
+%% natbib -> you can use, e.g., \citep{} or \parencite{} for (Einstein, 1905); with APA \cite -> Einstein, 1905 without ()
+%% maxcitenames=2 -> only 2 author names in text citations, if more -> et al. is used
+%% maxbibnames=99 as no great need to suppress the biliography list in a thesis
+%% for more information see biblatex package documentation, e.g., from https://ctan.org/pkg/biblatex 
+
+%% Reference style: select one 
+%% for APA = Harvard style = authoryear -> (Einstein, 1905) use:
+\usepackage[style=authoryear,bibstyle=authoryear,backend=biber,natbib=true,maxnames=99,maxcitenames=2,giveninits=true,uniquename=init]{biblatex}
+%% for numeric = Vancouver style -> [1] use:
+%\usepackage[style=numeric,bibstyle=numeric,backend=biber,natbib=true,maxbibnames=99,giveninits=true,uniquename=init]{biblatex}
+%% for alpahbetic -> [Ein05] use:
+%\usepackage[style=alphabetic,bibstyle=alphabetic,backend=biber,natbib=true,maxbibnames=99,giveninits=true,uniquename=init]{biblatex}
+%
+
+\addbibresource{bibliography.bib}
+% in case you want the final delimiter between authors & -> (Einstein & Zweistein, 1905) 
+% \renewcommand{\finalnamedelim}{ \& }
+% List the authors in the Bibilipgraphy as Lastname F, Familyname G,
+\DeclareNameAlias{sortname}{family-given}
+% remove the punctuation between author names in Bibliography 
+%\renewcommand{\revsdnamepunct}{ }
+
+
+%% Block of definitions for fonts and packages for picture management.
+%% In some systems, the figure packages may not be happy together.
+%% Choose the ones you need.
+
+%\usepackage[utf8]{inputenc} % For UTF8 support, in some systems. Use UTF8 when saving your file.
+
+\usepackage{lmodern}         % Font package, again in some systems.
+\usepackage{textcomp}        % Package for special symbols
+\usepackage[pdftex]{color, graphicx} % For pdf output and jpg/png graphics
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage[pdftex, plainpages=false]{hyperref} % For hyperlinks and pdf metadata
+\usepackage{fancyhdr}        % For nicer page headers
+\usepackage{tikz}            % For making vector graphics (hard to learn but powerful)
+%\usepackage{wrapfig}        % For nice text-wrapping figures (use at own discretion)
+\usepackage{amsmath, amssymb} % For better math
+
+\singlespacing               %line spacing options; normally use single
+
+\fussy
+%\sloppy                      % sloppy and fussy commands can be used to avoid overlong text lines
+% if you want to see which lines are too long or have too little stuff, comment out the following lines
+% \overfullrule=1mm
+% to see more info in the detailed log about under/overfull boxes...
+% \showboxbreadth=50 
+% \showboxdepth=50
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% STEP 2:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set up personal information for the title page and the abstract form.
+%% Replace parameters with your information.
+\title{Tutkielman otsikko}
+
+% TM: Contributors to template editors now listed in the beginning of the file in comments
+\author{Outi Opiskelija}
+\date{\today}
+
+
+
+% Set supervisors and examiners, use the titles according to the thesis language
+% Prof. 
+% Dr. or in Finnish toht. or tri or FT, TkT, Ph.D. or in Swedish... 
+\supervisors{Prof.~D.U.~Mind, Dr.~O.~Why}
+\examiners{Prof.~D.U.~Mind, Dr.~O.~Why}
+
+
+\keywords{ulkoasu, tiivistelmä, lähdeluettelo}
+\additionalinformation{\translate{\track}}
+
+%% For seminar reports:
+%%\additionalinformation{Name of the seminar}
+
+%% Replace classification terms with the ones that match your work. ACM
+%% ACM Digital library provides a taxonomy and a tool for classification
+%% in computer science. Use 1-3 paths, and use right arrows between the
+%% about three levels in the path; each path requires a new line.
+
+\classification{\protect{\ \\
+\  General and reference $\rightarrow$ Document types  $\rightarrow$ Surveys and overviews\  \\
+\  Applied computing  $\rightarrow$ Document management and text processing  $\rightarrow$ Document management $\rightarrow$ Text editing
+}}
+
+%% if you want to quote someone special. You can comment this line out and there will be nothing on the document.
+%\quoting{Bachelor's degrees make pretty good placemats if you get them laminated.}{Jeph Jacques}
+
+
+%% OPTIONAL STEP: Set up properties and metadata for the pdf file that pdfLaTeX makes.
+%% Your name, work title, and keywords are recommended.
+\hypersetup{
+    unicode=true,           % to show non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={},            % title
+    pdfauthor={},           % author
+    pdfsubject={},          % subject of the document
+    pdfcreator={},          % creator of the document
+    pdfproducer={pdfLaTeX}, % producer of the document
+    pdfkeywords={something} {something else}, % list of keywords for
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,        % false: boxed links; true: colored links
+    linkcolor=black,        % color of internal links
+    citecolor=black,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
 }
-\newcommand{\Lim}[1]{\raisebox{0.5ex}{\scalebox{0.8}{$\displaystyle \lim_{#1}\;$}}}
-\newcommand\eqover[1]{\stackrel{\mathclap{\small\mbox{#1}}}{=}}
 
-\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
-
-\title{Example Document}
-\date{18.1.2021}
-% number after title
-\titleformat{\section}{\normalfont\Large\bfseries}{}{0em}{#1\ \thesection}
-% subsection has letter, e.g. 1.1 is 1.a
-\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
-\renewcommand{\thesubsubsection}{\thesubsection.\roman{subsubsection}}
+%%-----------------------------------------------------------------------------------
 
 \begin{document}
+
+% Generate title page.
 \maketitle
 
-\section{Tehtävä}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% STEP 3:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Write your abstract to be positioned here.
+%% You can make several abstract pages (if you want it in different languages),
+%% but you should also then redefine some of the above parameters in the proper
+%% language as well, in between the abstract definitions.
+
+\begin{abstract}
+
+Tämä dokumentti on tarkoitettu Helsingin yliopiston tietojenkäsittelytieteen osaston opin\-näyt\-teiden ja harjoitustöiden ulkoasun ohjeeksi ja mallipohjaksi. Ohje soveltuu kanditutkielmiin, ohjelmistotuotantoprojekteihin, seminaareihin ja maisterintutkielmiin. Tämän ohjeen lisäksi on seurattava niitä ohjeita, jotka opastavat valitsemaan kuhunkin osioon tieteellisesti kiinnostavaa, syvällisesti pohdittua sisältöä.
 
 
-\begin{align*}
-    \frac{\cos(x + h) - \cos(x)}{h} &= \frac{\cos(x)\cos(h) - \sin(x)\sin(h) - \sin(x)}{h}\\
-    &= \frac{\cos(x)(\cos(h) - 1) - \sin(x)\sin(h)}{h}\\
-    &= \cos(x) \Lim{h \rightarrow 0} \frac{\cos(h) - 1}{h} - \sin(x) \Lim{h \rightarrow 0} \frac{\sin(h)}{h}\\
-    &= \cos(x) \cdot 0 - \sin(x) \cdot 1\\
-    &= -\sin(x)
-\end{align*}
+Työn aihe luokitellaan  
+ACM Computing Classification System (CCS) mukaisesti, 
+ks.\ \url{https://www.acm.org/about-acm/class},
+käyttäen komentoa \verb+\classification{}+. 
+Käytä muutamaa termipolkua (1--3), jotka alkavat juuritermistä ja joissa polun tarkentuvat luokat erotetaan toisistaan oikealle osoittavalla nuolella.
 
-\section{Tehtävä}
-\subsection{}
+\end{abstract}
 
-\begin{align*}
-    D_x 3 + \sin \sqrt[3]{x^2} &= D_x 3 + D_x \sin \sqrt[3]{x^2}\\
-    &= D_x \sin u
-\end{align*}
+\begin{otherlanguage}{english}
+\begin{abstract}
+Use this otherlanguage environment to write your abstract in another language if needed.
 
-\begin{align*}
-    u &= \sqrt[3]{u'}\\
-    u' &= x^2\\
-    \frac{d}{du}(\sqrt[3]{u'}) &= \frac{1}{3 \sqrt[3]{u'^2}}\\
-    \text{Ketjusäännöllä saadaan:}\\
-    \frac{d\sqrt[3]{u'}}{du'} \frac{du'}{dx} &= \frac{2x}{3 \sqrt[3]{x^4}}\\
-    \text{Ketjusäännöllä saadaan:}\\
-    \frac{d \sin u}{du} \frac{du}{dx} &= \frac{2x \cos \sqrt[3]{x^2}}{3 \sqrt[3]{x^4}}\\
-    \text{eli:}\\
-    D_x 3 + \sin \sqrt[3]{x^2} &= \frac{2x \cos \sqrt[3]{x^2}}{3 \sqrt[3]{x^4}}
-\end{align*}
+Topics are classified according to the ACM Computing Classification System
+(CCS), see 
+\url{https://www.acm.org/about-acm/class}:
+check command \verb+\classification{}+. A small set of paths (1--3) should be used, starting from any top nodes
+referred to bu the root term CCS leading to the leaf nodes. The elements
+in the path are separated by right arrow, and emphasis of each element individually can be indicated
+by the use of bold face for high importance or italics for intermediate
+level. The combination of individual boldface terms may give the reader
+additional insight. 
+\end{abstract}
+\end{otherlanguage}
 
-\subsection{}
+% Place ToC
+\newpage
+\mytableofcontents
+\mainmatter
 
-\begin{align*}
-    D_x \sqrt{1 - 2x + x^2} &= D_x \sqrt{u}\\
-    u &= 1 - 2x - x^2
-\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% STEP 4: Write the thesis.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Your actual text starts here. You shouldn't mess with the code above the line except
+%% to change the parameters. Removing the abstract and ToC commands will mess up stuff.
+%%
+%% You may wish to include material to avoid browsing the definitions
+%% above. Command \include{file} includes the file of name file.tex.
+%% As a side effect, subsequent inclusions may force a page break.
 
+% BSc instructions
+%\include{bsc_finnish_contents}
+%\include{bsc_english_contents}
+% MSc instructions
+%\include{msc_finnish_contents}
+\include{msc_english_contents}
 
-\begin{align*}
-    \frac{du}{dx} &= (1 - 2x - x^2) = 2x - 2\\
-    \text{Ketjusäännöllä saadaan:}\\
-    \frac{d \sqrt{u}}{du} \frac{du}{dx} &= \frac{1}{2 \sqrt{1 - 2x + x^2}} 2x - 2\\
-    &= \frac{x - 1}{\sqrt{(x - 1)^2}}\\
-    \text{eli:}\\
-    D_x \sqrt{1 - 2x + x^2} &= \frac{x - 1}{\sqrt{(x - 1)^2}}\\
-\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage                          %fixes the position of bibliography in bookmarks
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}  % This lines adds the bibliography to the ToC
+\printbibliography
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
+\begin{appendices}
+
+%\input{instructions_english}
+\input{instructions_finnish}
+
+\appendix{Sample Appendix\label{appendix:model}}
+usually starts on its own page, with the name and number of the appendix at the top. 
+The appendices here are just models of the table of contents and the presentation. Each appendix
+Each appendix is paginated separately.
+
+In addition to complementing the main document, each appendix is also its own, independent entity.
+This means that an appendix cannot be just an image or a piece of programming, but the appendix must explain its contents and meaning.
+
+\end{appendices}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}

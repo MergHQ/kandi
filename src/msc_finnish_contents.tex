@@ -1,0 +1,95 @@
+\chapter{Johdanto}
+
+Seuraavassa on joitain ohjeita tämän tutkielmapohjan käyttöön maisterintutkielmassa. Kirjoittamisohjeita löytyy useasta eri lähteestä. Voit esimerkiksi tutustua kandidaatintutkielman ohjeisiin. 
+Ohjaajan kanssa on hyvä keskustella aikaisessa vaiheessa työn rakenteesta.
+
+\chapter{Kuvat ja Taulukot}
+
+\section{Kuvat}
+Kuva~\ref{fig:logo} toimii esimerkkinä kuvan lisäämisestä työhön. Muista myös viitata jokaiseen kuvaan tekstissä. 
+
+\begin{figure}[h!] % remove [h!] for automatic placement, which is probalby better for a thesis with more text on page
+\centering 
+\includegraphics[width=0.3\textwidth]{HY-logo-ml.png}
+\caption{Helsingin yliopiston logo matemaattis-luonnontieteellisen tiedekunnan värein.\label{fig:logo}}
+\end{figure}
+
+\section{Taulukot}
+
+Taulukossa~\ref{table:results} on esimerkki kokeellisten tulosten raportoinnista taulukkona. Muista myös viitata jokaiseen taulukkoon tekstissä.
+
+\begin{table}[h!]
+\centering
+\caption{Kokeelliset tulokset.\label{table:results}}
+\begin{tabular}{l||l c r} 
+Koe & 1 & 2 & 3 \\ 
+\hline \hline 
+$A$ & 2.5 & 4.7 & -11 \\
+$B$ & 8.0 & -3.7 & 12.6 \\
+$A+B$ & 10.5 & 1.0 & 1.6 \\
+\hline
+%
+\end{tabular}
+\end{table}
+
+\chapter{Viitteet}
+
+\section{Kirjallisuusviitteet}
+
+Kirjallisuuslähteet ylläpidetään erillisessä .bib-tiedostossa. Tässä tutkielmapohjassa käytetyt kirjallisuuslähteet, joista esimerkkejä kuvassa~\ref{bibexamples}, löytyvät tiedostosta\newline \texttt{bibliography.bib}.
+
+\begin{figure}[h!]
+    \centering
+    \begin{scriptsize}
+				
+\begin{verbatim}
+
+@article{einstein,
+    author =       "Albert Einstein",
+    title =        "{Zur Elektrodynamik bewegter K{\"o}rper}. ({German})
+        [{On} the electrodynamics of moving bodies]",
+    journal =      "Annalen der Physik",
+    volume =       "322",
+    number =       "10",
+    pages =        "891--921",
+    year =         "1905",
+    DOI =          "http://dx.doi.org/10.1002/andp.19053221004"
+}
+@book{latexcompanion,
+    author    = "Michel Goossens and Frank Mittelbach and Alexander Samarin",
+    title     = "The \LaTeX\ Companion",
+    year      = "1993",
+    publisher = "Addison-Wesley",
+    address   = "Reading, Massachusetts"
+}
+@book{knuth99,
+    author    = "Donald E. Knuth",
+    title     = "Digital Typography",
+    year      = "1999",
+    publisher = "The Center for the Study of Language and Information",
+    series    = "CLSI Lecture Notes (78)"
+}
+\end{verbatim}
+\end{scriptsize}
+    \caption{Esimerkkejä kirjallisuuslähteiden kuvaamisesta .bib-tiedostossa.}
+    \label{bibexamples}
+\end{figure}
+
+Viitteet kirjallisuuslähteisiin muodostetaan komennolla \texttt{\textbackslash citep\{einstein\}}, josta generoituu tekstiin valitun viittaustyylin mukaisesti muotoiltu viite \citep{einstein}, tai \texttt{\textbackslash citep\{latexcompanion,knuth99\}}, josta tekstiin puolestaan generoituu \citep{latexcompanion,knuth99}. Tekstissä viitatut kirjallisuuslähteet tulevat automaattisesti viiteluetteloon. Kirjallisuuslähteiden tietojen oikeellisuus ja yhdenmukaisuus .bib-tiedostossa vaikuttavat luonnollisesti siihen, miten tiedot tutkielmassa näyttäytyvät. Tämä on syytä huomioida, sillä esim. verkosta valmiiksi {Bib\TeX} muodossa löytyvien tietojen täydellisyyten tai samanmuotoisuuteen ei pidä sokeasti luottaa.  
+
+Keskustele viittaustyylin valinnasta ohjaajan kanssa. Joitain vaihtoehtoja on osoitteessa:\\ 
+\url{https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles}.
+%\url{https://www.sharelatex.com/learn/Bibtex_bibliography_styles}.
+
+\section{Ristiviitteet}
+
+%Liite~\ref{appendix:model} sivulla~\pageref{appendix:model} sisältää lisämateriaalia.
+Taulukossa~\ref{table:results} sivulla~\pageref{table:results} on koottuna kokeelliset tulokset.
+
+% \chapter{Pdf:n luominen tex:stä}
+
+% Linuxissa voit ajaa komentoja \texttt{pdflatex filename.tex} ja \texttt{biber filename.tex} vuorotelleen kunnes ohjelmat eivät enää anna varoituksia. Prosessi on helppo automatisoida make-komennon avulla.
+ 
+% \chapter{Johtopäätökset\label{chapter:conclusions}}
+
+% Tutkielma on hyvä päättää johtopäätöksiin tutkielman löydöksistä. 

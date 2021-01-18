@@ -1,0 +1,86 @@
+\chapter{Introduction}
+
+The following gives some superficial instructions for using this template for a Master's thesis. For guidelines on thesis writing you can consult various sources, for example, the Bachelor thesis template.
+
+The thesis should have an introduction chapter. Other chapters can be named according to the topic. In the end, some summary chapter is needed; see Chapter~\ref{chapter:conclusions} for an example.
+
+\chapter{Figures and Tables}
+
+\section{Figures}
+Figure~\ref{fig:logo} gives an example how to add figures to the document. Remember always to cite the figure in the main text.
+
+\begin{figure}[h!] 
+\centering 
+\includegraphics[width=0.3\textwidth]{HY-logo-ml.png}
+\caption{University of Helsinki flame-logo for Faculty of Science.\label{fig:logo}}
+\end{figure}
+
+\section{Tables}
+
+Table~\ref{table:results} gives an example how to report experimental results. Remember always to cite the table in the main text. 
+
+\begin{table}
+\centering
+\caption{Experimental results.\label{table:results}}
+\begin{tabular}{l||l c r} 
+Experiment & 1 & 2 & 3 \\ 
+\hline \hline 
+$A$ & 2.5 & 4.7 & -11 \\
+$B$ & 8.0 & -3.7 & 12.6 \\
+$A+B$ & 10.5 & 1.0 & 1.6 \\
+\hline
+%
+\end{tabular}
+\end{table}
+
+\chapter{Citations}
+
+\section{Citations to literature}
+
+References are listed in a separate .bib-file. In this case it is named \texttt{bibliography.bib} including the following content:
+\begin{verbatim}
+@article{einstein,
+    author =       "Albert Einstein",
+    title =        "{Zur Elektrodynamik bewegter K{\"o}rper}. ({German})
+        [{On} the electrodynamics of moving bodies]",
+    journal =      "Annalen der Physik",
+    volume =       "322",
+    number =       "10",
+    pages =        "891--921",
+    year =         "1905",
+    DOI =          "http://dx.doi.org/10.1002/andp.19053221004"
+}
+ 
+@book{latexcompanion,
+    author    = "Michel Goossens and Frank Mittelbach and Alexander Samarin",
+    title     = "The \LaTeX\ Companion",
+    year      = "1993",
+    publisher = "Addison-Wesley",
+    address   = "Reading, Massachusetts"
+}
+ 
+@misc{knuthwebsite,
+    author    = "Donald Knuth",
+    title     = "Knuth: Computers and Typesetting",
+    url       = "http://www-cs-faculty.stanford.edu/%7Eknuth/abcde.html"
+}
+\end{verbatim}
+
+In the last reference url field the code \verb+%7E+ will translate into \verb+~+ once clicked in the final pdf.
+
+References are created using command \texttt{\textbackslash cite\{einstein\}}, showing as \citep{einstein}. Other examples: \citep{latexcompanion,knuthwebsite}.
+
+Citation style can be negotiated with the supervisor. See some options in \url{https://www.sharelatex.com/learn/Bibtex_bibliography_styles}.
+
+\section{Crossreferences}
+
+Appendix~\ref{appendix:model} on page~\pageref{appendix:model} contains some additional material.
+
+\chapter{From tex to pdf}
+
+In Linux, run \texttt{pdflatex filename.tex} and \texttt{biber filename.tex} repeatedly until no more warnings are shown. This process can be automised using make-command.
+Note that normally we would be using \texttt{bibtex} command instead of \texttt{biber} but because of the biblatex package \texttt{biber} should be used.
+ 
+\chapter{Conclusions\label{chapter:conclusions}}
+
+It is good to conclude with a summary of findings. You can also use separate chapter for discussion and future work. These details you can negotiate with your supervisor.
