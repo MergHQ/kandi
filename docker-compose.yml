@@ -1,8 +1,0 @@
-version: "3.9"
-services:
-  tex:
-    build: .
-    volumes:
-      - ./src:/tex
-      - ./scripts:/tex/scripts
-      - ./miktex:/miktex/.miktex
