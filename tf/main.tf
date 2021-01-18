@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
     region = "eu-west-1"
-    bucket = "kandi-bucket"
-    key    = "kandi-bucket"
+    bucket = "kandi-state"
+    key    = "kandi-state"
   }
 }
 
