@@ -17,3 +17,37 @@ jobs:
           echo "Update mpm db"
           docker-compose run tex mpm --update-db
           docker-compose run tex pdflatex src/main.tex
+
+      - uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.24
+
+      - name: Terraform Init
+        run: |
+          cd ./tf
+          terraform init
+
+      - name: Terraform Plan
+        env:
+          TF_VAR_dest_bucket_name: ${{ secrets.DEST_BUCKET_NAME }}
+        run: |
+          cd ./deploy
+          export TF_VAR_github_sha=${GITHUB_SHA::8}
+          terraform plan -out=plan
+
+      - name: Terraform Apply
+        env:
+          TF_VAR_dest_bucket_name: ${{ secrets.DEST_BUCKET_NAME }}
+        run: |
+          cd ./deploy
+          export TF_VAR_github_sha=${GITHUB_SHA::8}
+          terraform apply plan
