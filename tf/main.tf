@@ -26,7 +26,7 @@ resource "aws_s3_bucket" "dest_bucket" {
 resource "aws_s3_bucket_object" "object" {
   bucket     = aws_s3_bucket.dest_bucket.id
   key        = "kandi-${var.github_sha}.pdf"
-  source     = "../main.pdf"
+  source     = "../src/main.pdf"
   acl        = "public-read"
   depends_on = ["aws_s3_bucket.dest_bucket"]
 }

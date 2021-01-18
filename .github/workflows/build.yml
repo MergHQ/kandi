@@ -16,7 +16,7 @@ jobs:
           docker-compose build
           echo "Update mpm db"
           docker-compose run tex mpm --update-db
-          docker-compose run tex pdflatex src/main.tex
+          docker-compose run tex pdflatex main.tex
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
