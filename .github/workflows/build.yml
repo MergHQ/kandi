@@ -11,12 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build PDF
-        run: |
-          docker-compose build
-          echo "Update mpm db"
-          docker-compose run tex mpm --update-db
-          docker-compose run tex pdflatex main.tex
+      - uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: ./src
+          root_file: |
+            main.tex
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1

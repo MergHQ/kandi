@@ -4,4 +4,5 @@ services:
     build: .
     volumes:
       - ./src:/tex
+      - ./scripts:/tex/scripts
       - ./miktex:/miktex/.miktex
