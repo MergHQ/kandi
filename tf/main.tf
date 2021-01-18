@@ -29,5 +29,6 @@ resource "aws_s3_bucket_object" "object" {
   source              = "../src/main.pdf"
   acl                 = "public-read"
   content_disposition = "inline"
+  content_type        = "application/pdf"
   depends_on          = ["aws_s3_bucket.dest_bucket"]
 }
