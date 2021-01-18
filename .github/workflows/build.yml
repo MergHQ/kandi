@@ -14,4 +14,6 @@ jobs:
       - name: Build PDF
         run: |
           docker-compose build
+          echo "Update mpm db"
+          docker-compose run tex mpm --update-db
           docker-compose run tex pdflatex src/main.tex
