@@ -24,7 +24,7 @@ resource "aws_s3_bucket" "dest_bucket" {
 }
 
 resource "aws_s3_bucket_object" "object" {
-  bucket     = resource.aws_s3_bucket.dest_bucket.id
+  bucket     = aws_s3_bucket.dest_bucket.id
   key        = "kandi-${var.github_sha}.pdf"
   source     = "../main.pdf"
   depends_on = ["aws_s3_bucket.dest_bucket"]
