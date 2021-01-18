@@ -18,7 +18,6 @@ jobs:
           docker-compose run tex mpm --update-db
           docker-compose run tex pdflatex src/main.tex
 
-      - uses: actions/checkout@v2
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
