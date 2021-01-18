@@ -39,7 +39,7 @@ jobs:
         env:
           TF_VAR_dest_bucket_name: ${{ secrets.DEST_BUCKET_NAME }}
         run: |
-          cd ./deploy
+          cd ./tf
           export TF_VAR_github_sha=${GITHUB_SHA::8}
           terraform plan -out=plan
 
@@ -47,6 +47,6 @@ jobs:
         env:
           TF_VAR_dest_bucket_name: ${{ secrets.DEST_BUCKET_NAME }}
         run: |
-          cd ./deploy
+          cd ./tf
           export TF_VAR_github_sha=${GITHUB_SHA::8}
           terraform apply plan
