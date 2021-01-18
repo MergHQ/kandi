@@ -20,12 +20,13 @@ variable "github_sha" {
 
 resource "aws_s3_bucket" "dest_bucket" {
   bucket = var.dest_bucket_name
-  acl    = "public-read"
+  acl    = "private"
 }
 
 resource "aws_s3_bucket_object" "object" {
   bucket     = aws_s3_bucket.dest_bucket.id
   key        = "kandi-${var.github_sha}.pdf"
   source     = "../main.pdf"
+  acl        = "public-read"
   depends_on = ["aws_s3_bucket.dest_bucket"]
 }
