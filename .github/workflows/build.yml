@@ -2,8 +2,8 @@ name: pdf-deployment
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - "rev*" # Push events to matching v*, i.e. v1.0, v20.15.10
 jobs:
   build:
     runs-on: ubuntu-latest
