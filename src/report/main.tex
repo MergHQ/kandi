@@ -1,0 +1,56 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+% math symbols etc
+\usepackage{amsmath,amsthm,amssymb}
+% declarepaireddelimiter for \norm
+\usepackage{mathtools}
+
+
+% \degree symbol
+\usepackage{gensymb}
+% verbatim (code blocks)
+\usepackage{verbatim}
+% titlesec to redefine \section to get number after title
+\usepackage[explicit]{titlesec}
+% \textcolor names
+\usepackage[usenames, dvipsnames]{color}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[finnish]{babel}
+
+\usetikzlibrary{automata,positioning}
+
+\setlength{\parindent}{0pt}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newcommand{\cfbox}[2]{%
+    \colorlet{currentcolor}{.}%
+    {\color{#1}%
+    \fbox{\color{currentcolor}#2}}%
+}
+\newcommand{\Lim}[1]{\raisebox{0.5ex}{\scalebox{0.8}{$\displaystyle \lim_{#1}\;$}}}
+\newcommand\eqover[1]{\stackrel{\mathclap{\small\mbox{#1}}}{=}}
+
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\title{TKT200013 Översikt}
+\date{8.2.2021}
+% number after title
+\titleformat{\section}{\normalfont\Large\bfseries}{}{0em}{#1\ \thesection}
+% subsection has letter, e.g. 1.1 is 1.a
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\roman{subsubsection}}
+
+\begin{document}
+\maketitle
+
+
+\end{document}
