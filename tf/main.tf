@@ -26,7 +26,17 @@ resource "aws_s3_bucket" "dest_bucket" {
 resource "aws_s3_bucket_object" "object" {
   bucket              = aws_s3_bucket.dest_bucket.id
   key                 = "kandi-${var.github_sha}.pdf"
-  source              = "../src/main.pdf"
+  source              = "../src/thesis/main.pdf"
+  acl                 = "public-read"
+  content_disposition = "inline"
+  content_type        = "application/pdf"
+  depends_on          = ["aws_s3_bucket.dest_bucket"]
+}
+
+resource "aws_s3_bucket_object" "report_object" {
+  bucket              = aws_s3_bucket.dest_bucket.id
+  key                 = "refe-${var.github_sha}.pdf"
+  source              = "../src/report/main.pdf"
   acl                 = "public-read"
   content_disposition = "inline"
   content_type        = "application/pdf"

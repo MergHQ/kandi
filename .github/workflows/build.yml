@@ -3,7 +3,8 @@ name: pdf-deployment
 on:
   push:
     tags:
-      - "rev*" # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'rev-kandi*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'rev-report*'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,7 +14,13 @@ jobs:
 
       - uses: xu-cheng/latex-action@v2
         with:
-          working_directory: ./src
+          working_directory: ./src/thesis
+          root_file: |
+            main.tex
+
+      - uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: ./src/report
           root_file: |
             main.tex
 
@@ -62,6 +69,7 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            Current release: https://${{ secrets.RELEASE_URL_PREFIX }}/kandi-${{ env.GITHUB_SHA_SHORT }}.pdf
+            Thesis: https://${{ secrets.RELEASE_URL_PREFIX }}/kandi-${{ env.GITHUB_SHA_SHORT }}.pdf
+            Report: https://${{ secrets.RELEASE_URL_PREFIX }}/refe-${{ env.GITHUB_SHA_SHORT }}.pdf
           draft: false
           prerelease: false
