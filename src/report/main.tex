@@ -21,6 +21,8 @@
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage[finnish]{babel}
+\usepackage{minted}
+\usemintedstyle{vs}
 
 \usetikzlibrary{automata,positioning}
 
@@ -30,6 +32,9 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\tssubset}{\mintinline{Python}{T[a:b]}}
+\newcommand{\csegment}{\mintinline{Python}{create_segment(T)}}
+\newcommand{\calcerr}{\mintinline{Python}{calculate_error(T)}}
 
 \newcommand{\cfbox}[2]{%
     \colorlet{currentcolor}{.}%
@@ -44,13 +49,38 @@
 \title{TKT200013 Översikt}
 \date{8.2.2021}
 % number after title
-\titleformat{\section}{\normalfont\Large\bfseries}{}{0em}{#1\ \thesection}
+\titleformat{\section}{\normalfont\Large\bfseries}{}{0em}{\thesection.#1}
 % subsection has letter, e.g. 1.1 is 1.a
-\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
-\renewcommand{\thesubsubsection}{\thesubsection.\roman{subsubsection}}
+% \renewcommand{\thesubsection}{\thesection.}
+% \renewcommand{\thesubsubsection}{\thesubsection}
+
 
 \begin{document}
 \maketitle
+
+Den här texten omfattar artikeln ``An online Algorithm for Segmenting Time Series`` från Eamonn Keogh, Selina Chu, David Hart, Michael Pazzani.
+
+\section{Inledning}
+
+Artikeln analyserar olika algoritmer för segementering av tidsserier. Intresse för datautvinning av tidsserier kräver algoritmer som kan analysera och representera datan tillräckligt bra. Artikeln koncentrerar sig på PLR eller Piecewise Linear Representation. PLR går ut på approximationen av en tidsserie $T$ med längd $n$ och $K$ raka linjer. PLR har använts bland annat för att göra snabba exakta likhetssökningar, göra olika slags frågor av tiddserier, klustringsalgoritmer och klassifieringsalgoritmer.
+\bigskip
+
+Fast PLR var mycket aktuellt då artikelt var skriven, fanns det inte många jämförelser av olika algortimer. Artikeln använder begräppet segmenteringsalgoritmer för algoritmer som tar in en tidsserie och returnerear en styckvis linjär representation. Segmenteringsproblemet kan delas in många delar: producera bästa representationen av tidsserien $T$ med att använda bara $K$ segmentter, producera bästa representationen av tidsserien $T$ så att avvikelsen för vilket segment som hälst inte går över en specifik tröskel \mintinline{Python}{max_error} eller producera bästa representationen av tidsserien $T$ så att kobinerade avvikelsen inte går över en specifik tröskel \mintinline{Python}{total_max_error}. Segmenteringsalgoritmer kan också klassifieras som batchalgoritm eller realtidsalgoritm. Artikeln går igenom 3 olika segementeringsalgoritmer och introducerar en ny variant av segmenteringsalgoritmer.
+\bigskip
+
+\section{Bakgrund}
+
+Segmenteringsalgoritmerna kan bli gruperade till tre olika kategorier: Sliding Window som segmenterar data tils den når en viss feltröskel, Top-Down som rekursivet segmenterar data tills en viss punk har nåts och Bottom-Up som slår ihop segementer tills en viss punk har nåts. Arikeln använder en viss notation för att beskriva algoritmer: $T$ är en tidsserie $t_1, t_2, ..., t_n$, \tssubset{} är en stycke $t_a, t_{a+1}, ..., t_b$ av en tidsserie $T$, \csegment{} som returnerar en linjär approximation av tidsserien och \calcerr{} som returnerar tidsseriens approximationsfel. Approximeringen kan göras på två olika sätt: linjär interpolation och linjär regression. Linjärä interpolationen för stycket \tssubset{} är linjen som kopplar $t_a$ och $t_b$ och linjärä regressionen för \tssubset{} approximerar en linje som passar punkterna mellan $t_a$ och $t_b$. Segmenteringsalgorimerna behöver en metod för att evaluera resultaten. Artikeln nämner några alternativ, felkvadratssumman eller $L_\inf$ norm. \calcerr{} kan tänkas vara någon av metoderna.
+\bigskip
+
+\subsection{Sliding Window}
+
+Sliding Window algoritmen väljer en startpunkt varifrån den börjar "glida" frammåt. Algoritmen approximerear punkterna för varje punkt som tas in i data ramen med \calcerr{}. Efter approximationsfelet som mäts med \calcerr{} för segmenten går över en tröskel flyttar ramen till den punkten var approximationsfelet gick över tröskeln. Algoritmen anses bra eftersom den är simpel och kan användas i realtid. Artikeln går igenom några förbättringar för att göra algoritmen snabbare, men Sliding Window ger oftast dåliga resultat. Sliding Window fungerar bra för data som är jämnt, men ger dåliga resultat för bullrigt data.
+
+\subsection{Top-Down}
+
+Top-Down algoritmen går igenom tidsserien rekursivt och försöker hitta bästa punkten för att segmentera datan. Algoritmen kontrollerar att approximationfelen för varje segment inte går över en tröskel. Om approximationfelet går över tröskeln fortsätter algoritmen att segemntera tidsserien till mindre bitar. Artikeln går igenom några alternativa genomförande av Top-Down som ökar algoritmens prestation.
+
 
 
 \end{document}
