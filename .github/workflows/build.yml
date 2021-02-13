@@ -15,12 +15,14 @@ jobs:
       - uses: xu-cheng/latex-action@v2
         with:
           working_directory: ./src/thesis
+          latexmk_shell_escape: true
           root_file: |
             main.tex
 
       - uses: xu-cheng/latex-action@v2
         with:
           working_directory: ./src/report
+          latexmk_shell_escape: true
           root_file: |
             main.tex
 
