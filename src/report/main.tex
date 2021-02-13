@@ -49,7 +49,7 @@
 \title{TKT200013 Översikt}
 \date{8.2.2021}
 % number after title
-\titleformat{\section}{\normalfont\Large\bfseries}{}{0em}{\thesection.#1}
+\titleformat{\section}{\normalfont\Large\bfseries}{}{0em}{\thesection. #1}
 % subsection has letter, e.g. 1.1 is 1.a
 % \renewcommand{\thesubsection}{\thesection.}
 % \renewcommand{\thesubsubsection}{\thesubsection}
@@ -70,7 +70,7 @@ Fast PLR var mycket aktuellt då artikelt var skriven, fanns det inte många jä
 
 \section{Bakgrund}
 
-Segmenteringsalgoritmerna kan bli gruperade till tre olika kategorier: Sliding Window som segmenterar data tils den når en viss feltröskel, Top-Down som rekursivet segmenterar data tills en viss punk har nåts och Bottom-Up som slår ihop segementer tills en viss punk har nåts. Arikeln använder en viss notation för att beskriva algoritmer: $T$ är en tidsserie $t_1, t_2, ..., t_n$, \tssubset{} är en stycke $t_a, t_{a+1}, ..., t_b$ av en tidsserie $T$, \csegment{} som returnerar en linjär approximation av tidsserien och \calcerr{} som returnerar tidsseriens approximationsfel. Approximeringen kan göras på två olika sätt: linjär interpolation och linjär regression. Linjärä interpolationen för stycket \tssubset{} är linjen som kopplar $t_a$ och $t_b$ och linjärä regressionen för \tssubset{} approximerar en linje som passar punkterna mellan $t_a$ och $t_b$. Segmenteringsalgorimerna behöver en metod för att evaluera resultaten. Artikeln nämner några alternativ, felkvadratssumman eller $L_\inf$ norm. \calcerr{} kan tänkas vara någon av metoderna.
+Segmenteringsalgoritmerna kan bli gruperade till tre olika kategorier: Sliding Window som segmenterar data tils den når en viss feltröskel, Top-Down som rekursivet segmenterar data tills en viss punk har nåts och Bottom-Up som slår ihop segementer tills en viss punk har nåts. Arikeln använder en viss notation för att beskriva algoritmer: $T$ är en tidsserie $t_1, t_2, ..., t_n$, \tssubset{} är en stycke $t_a, t_{a+1}, ..., t_b$ av en tidsserie $T$, \csegment{} som returnerar en linjär approximation av tidsserien och \calcerr{} som returnerar tidsseriens approximationsfel. Approximeringen kan göras på två olika sätt: linjär interpolation och linjär regression. Linjärä interpolationen för stycket \tssubset{} är linjen som kopplar $t_a$ och $t_b$ och linjärä regressionen för \tssubset{} approximerar en linje som passar punkterna mellan $t_a$ och $t_b$. Segmenteringsalgorimerna behöver en metod för att evaluera resultaten. Artikeln nämner några alternativ, felkvadratssumman eller $L_\infty$ norm. \calcerr{} kan tänkas vara någon av metoderna.
 \bigskip
 
 \subsection{Sliding Window}
@@ -79,8 +79,30 @@ Sliding Window algoritmen väljer en startpunkt varifrån den börjar "glida" fr
 
 \subsection{Top-Down}
 
-Top-Down algoritmen går igenom tidsserien rekursivt och försöker hitta bästa punkten för att segmentera datan. Algoritmen kontrollerar att approximationfelen för varje segment inte går över en tröskel. Om approximationfelet går över tröskeln fortsätter algoritmen att segemntera tidsserien till mindre bitar. Artikeln går igenom några alternativa genomförande av Top-Down som ökar algoritmens prestation.
+Top-Down algoritmen går igenom tidsserien rekursivt och försöker hitta bästa punkten för att segmentera datan. Algoritmen kontrollerar att approximationfelen för varje segment inte går över en tröskel. Om approximationfelet går över tröskeln fortsätter algoritmen att segemntera tidsserien till mindre bitar. Artikeln går igenom några alternativa genomförande av Top-Down som ökar algoritmens prestation. En variant av algoritmen markerar alla extremvärden och bygger en inledande segmentering. Sedan applikeras Top-Down för varje segment normalt. Varianten fungerar bra för jämn data men var oeffektiv för data som tilverkas av riktiga världen.
 
+\subsection{Bottom-Up}
 
+Bottom-Up algoritmen approximerar bästa möjliga resultatet så att $n/2$ segmentter används för att approximera tidsserien med länged $n$. Algoritmen mäter kostnaden för kombineringen av varje par. Algoritmen forsätter att kombinera paret med lägsta kostnaden iterativt tills ett kriteria har uppfyllts. Algorimen sparar kostnaderna och räknar dom på nytt när ett segment kombineras med högra grannsegmentet och när $i-1$ segment kombineras med ett större grannsegment. Algortimen har använts bland annat innom medicinvetenskap för att ge en hög nivås representation för deras mönstermatchinings system.
+
+\section{Jämförelse av algoritmerna}
+
+I artikeln testas olika algoritmerna med varierande data för att undvika partiska resultat. Algoritmerna använder linjär regression för approximering med alla algoritmerna. Artikelns författare testar algoritmerna med olika värden för \mintinline{Python}{max_error} eftersom deras prestationsförmåga beror på värdet. I artikkeln har man valt ett ``rimligt värde`` för \mintinline{Python}{max_error} och sedan har man multiplicera värdet med $2^i$ var $i \in \{ 1, ..., 6 \}$
+
+\subsection{Resultat}
+
+Resultaten är grafiska i form av stapeldiagram. På X-axeln finns \mintinline{Python}{max_error} numrerat som exponenten $i$ och på Y-axeln är värdet av approximationsfelen. Det första som märks av resultaten är att Sliding Window ger nästan alltid överlegset de sämsta resultaten. Bottom-Up algoritmen get överlägset bästa resultaten förutom några tillfällen när Top-Down är bättre.
+
+\section{En ny algoritm}
+
+Artikelns författare blev inspirerade att komma på med en ny algoritm som fungerar i realtid och har en helhetsbild av tidsserien som saknas från Sliding Window. Algoritmen heter SWAB (Sliding Window and Bottom-Up).
+
+\subsection{SWAB}
+
+Algortimen använder en buffert som har plats för 5 eller 6 segment. Bottom-Up appliceras på segmenterna i bufferten. Datan i segmentet mest till vänster är uträknad och tags bord från bufferten. Mera data sätts in i bufferten och prosessen börjar på nytt. Algortimen har en metod \mintinline{Python}{Best_Line} som är bara en Sliding Window algoritm. Datan från \mintinline{Python}{Best_Line} ges till bufferten som sedan Bottom-Up appliceras på. Bufferten fungerar bra för att ge Bottom-Up en relativt bra helhetsbild av tidsserien. Om bufferten blir för stor kommer algoritmen bara vara Bottom-Up, och om den är för liten kommer algoritmen bara vara Sliding Window. Algoritmen kombinerar Sliding Windows och Bottom-Ups starka sidor men producerar ändå nästan likadanna resultat som bara Bottom-Up.
+
+\subsection{Resultaten av nya algoritmen}
+
+I testanded användes det samma metoder som i testen i sektion 3. Resultaten liknar mycket Bottom-Up algoritmens resultat.
 
 \end{document}
