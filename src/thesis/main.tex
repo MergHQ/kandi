@@ -42,7 +42,7 @@
 %%      nodes-line-2017 = Networking and Services subprogramme
 %%
 
-\documentclass[finnish,twoside,censored,tkt,sw-line]{HYthesisML}
+\documentclass[swedish,twoside,censored,tkt,sw-line]{HYthesisML}
 
 
 % In theses, open new chapters only at right page.
@@ -61,9 +61,9 @@
 
 %% Reference style: select one 
 %% for APA = Harvard style = authoryear -> (Einstein, 1905) use:
-\usepackage[style=authoryear,bibstyle=authoryear,backend=biber,natbib=true,maxnames=99,maxcitenames=2,giveninits=true,uniquename=init]{biblatex}
+%\usepackage[style=authoryear,bibstyle=authoryear,backend=biber,natbib=true,maxnames=99,maxcitenames=2,giveninits=true,uniquename=init]{biblatex}
 %% for numeric = Vancouver style -> [1] use:
-%\usepackage[style=numeric,bibstyle=numeric,backend=biber,natbib=true,maxbibnames=99,giveninits=true,uniquename=init]{biblatex}
+\usepackage[style=numeric,bibstyle=numeric,backend=biber,natbib=true,maxbibnames=99,giveninits=true,uniquename=init]{biblatex}
 %% for alpahbetic -> [Ein05] use:
 %\usepackage[style=alphabetic,bibstyle=alphabetic,backend=biber,natbib=true,maxbibnames=99,giveninits=true,uniquename=init]{biblatex}
 %
@@ -93,6 +93,9 @@
 \usepackage{tikz}            % For making vector graphics (hard to learn but powerful)
 %\usepackage{wrapfig}        % For nice text-wrapping figures (use at own discretion)
 \usepackage{amsmath, amssymb} % For better math
+\usepackage{verbatim}
+\usepackage{minted}
+\usemintedstyle{vs}
 
 \singlespacing               %line spacing options; normally use single
 
@@ -111,10 +114,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Set up personal information for the title page and the abstract form.
 %% Replace parameters with your information.
-\title{Tutkielman otsikko}
+\title{Behandling av massiva dataströmmar}
 
 % TM: Contributors to template editors now listed in the beginning of the file in comments
-\author{Outi Opiskelija}
+\author{Hugo Holmqvist}
 \date{\today}
 
 
@@ -170,7 +173,10 @@
 
 %%-----------------------------------------------------------------------------------
 
+
+
 \begin{document}
+
 
 % Generate title page.
 \maketitle
@@ -233,7 +239,7 @@ additional insight.
 %\include{bsc_english_contents}
 % MSc instructions
 %\include{msc_finnish_contents}
-\include{msc_english_contents}
+\include{bsc_swedish_contents}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \cleardoublepage                          %fixes the position of bibliography in bookmarks
