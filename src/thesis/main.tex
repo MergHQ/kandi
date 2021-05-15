@@ -42,7 +42,7 @@
 %%      nodes-line-2017 = Networking and Services subprogramme
 %%
 
-\documentclass[swedish,twoside,censored,tkt,sw-line]{HYthesisML}
+\documentclass[swedish,twoside,censored,tkt]{HYthesisML}
 
 
 % In theses, open new chapters only at right page.
@@ -125,11 +125,11 @@
 % Set supervisors and examiners, use the titles according to the thesis language
 % Prof. 
 % Dr. or in Finnish toht. or tri or FT, TkT, Ph.D. or in Swedish... 
-\supervisors{Prof.~D.U.~Mind, Dr.~O.~Why}
-\examiners{Prof.~D.U.~Mind, Dr.~O.~Why}
+\supervisors{Jeremias Berg}
+\examiners{Patrik Floréen}
 
 
-\keywords{ulkoasu, tiivistelmä, lähdeluettelo}
+\keywords{dataströmmar, Big Data, lambda-arkitektur, kappa-arkitektur}
 \additionalinformation{\translate{\track}}
 
 %% For seminar reports:
@@ -141,9 +141,10 @@
 %% about three levels in the path; each path requires a new line.
 
 \classification{\protect{\ \\
-\  General and reference $\rightarrow$ Document types  $\rightarrow$ Surveys and overviews\  \\
-\  Applied computing  $\rightarrow$ Document management and text processing  $\rightarrow$ Document management $\rightarrow$ Text editing
+\  Computer systems organization $\rightarrow$ Real-time system architecture  \\
+\  Information systems $\rightarrow$ Data stream mining
 }}
+
 
 %% if you want to quote someone special. You can comment this line out and there will be nothing on the document.
 %\quoting{Bachelor's degrees make pretty good placemats if you get them laminated.}{Jeph Jacques}
@@ -157,10 +158,10 @@
     pdfmenubar=true,        % show Acrobat’s menu?
     pdffitwindow=false,     % window fit to page when opened
     pdfstartview={FitH},    % fits the width of the page to the window
-    pdftitle={},            % title
-    pdfauthor={},           % author
+    pdftitle={Behandling av massiva dataströmmar},            % title
+    pdfauthor={Hugo Holmqvist},           % author
     pdfsubject={},          % subject of the document
-    pdfcreator={},          % creator of the document
+    pdfcreator={Hugo Holmqvist},          % creator of the document
     pdfproducer={pdfLaTeX}, % producer of the document
     pdfkeywords={something} {something else}, % list of keywords for
     pdfnewwindow=true,      % links in new window
@@ -192,32 +193,20 @@
 
 \begin{abstract}
 
-Tämä dokumentti on tarkoitettu Helsingin yliopiston tietojenkäsittelytieteen osaston opin\-näyt\-teiden ja harjoitustöiden ulkoasun ohjeeksi ja mallipohjaksi. Ohje soveltuu kanditutkielmiin, ohjelmistotuotantoprojekteihin, seminaareihin ja maisterintutkielmiin. Tämän ohjeen lisäksi on seurattava niitä ohjeita, jotka opastavat valitsemaan kuhunkin osioon tieteellisesti kiinnostavaa, syvällisesti pohdittua sisältöä.
+I denna avhandling går vi igenom två arkitekturer för behandling av massiva
+dataströmmar. Vi går även igenom underliggande koncept som krävs för att
+förstå själva avhandlingen och introducerar några platformer som kan
+användas.
 
-
-Työn aihe luokitellaan  
-ACM Computing Classification System (CCS) mukaisesti, 
-ks.\ \url{https://www.acm.org/about-acm/class},
-käyttäen komentoa \verb+\classification{}+. 
-Käytä muutamaa termipolkua (1--3), jotka alkavat juuritermistä ja joissa polun tarkentuvat luokat erotetaan toisistaan oikealle osoittavalla nuolella.
+Vi presenterar nödvändiga komponenter för att bygga ett system som kan
+behandla massiva dataströmmar, och bevisar hur dom kan användas med hjälp
+av konkreta exempel. I avhandlingen diskuterar vi när Kappa- och 
+Lambda-arkitektur kan användas, och i vilka situationer ena är bättre än
+andra.
 
 \end{abstract}
 
-\begin{otherlanguage}{english}
-\begin{abstract}
-Use this otherlanguage environment to write your abstract in another language if needed.
 
-Topics are classified according to the ACM Computing Classification System
-(CCS), see 
-\url{https://www.acm.org/about-acm/class}:
-check command \verb+\classification{}+. A small set of paths (1--3) should be used, starting from any top nodes
-referred to bu the root term CCS leading to the leaf nodes. The elements
-in the path are separated by right arrow, and emphasis of each element individually can be indicated
-by the use of bold face for high importance or italics for intermediate
-level. The combination of individual boldface terms may give the reader
-additional insight. 
-\end{abstract}
-\end{otherlanguage}
 
 % Place ToC
 \newpage
@@ -249,20 +238,7 @@ additional insight.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
-\begin{appendices}
 
-%\input{instructions_english}
-\input{instructions_finnish}
-
-\appendix{Sample Appendix\label{appendix:model}}
-usually starts on its own page, with the name and number of the appendix at the top. 
-The appendices here are just models of the table of contents and the presentation. Each appendix
-Each appendix is paginated separately.
-
-In addition to complementing the main document, each appendix is also its own, independent entity.
-This means that an appendix cannot be just an image or a piece of programming, but the appendix must explain its contents and meaning.
-
-\end{appendices}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
